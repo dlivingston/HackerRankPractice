@@ -1,5 +1,7 @@
 'use strict';
 
+const fs = require('fs');
+
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -7,44 +9,39 @@ let inputString = '';
 let currentLine = 0;
 
 process.stdin.on('data', function(inputStdin) {
-	inputString += inputStdin;
+    inputString += inputStdin;
 });
 
 process.stdin.on('end', function() {
-	inputString = inputString.split('\n');
-	
-	main();
+    inputString = inputString.split('\n');
+
+    main();
 });
 
 function readLine() {
-	return inputString[currentLine++];
+    return inputString[currentLine++];
 }
 
 /*
-* Complete the 'miniMaxSum' function below.
-*
-* The function accepts INTEGER_ARRAY arr as parameter.
-*/
+ * Complete the 'timeConversion' function below.
+ *
+ * The function is expected to return a STRING.
+ * The function accepts STRING s as parameter.
+ */
 
-function miniMaxSum(arr) {
-	// Write your code here
-	const sortedArray = arr.sort((a, b) => {return a - b})
-	console.log("sorted", sortedArray)
-	let min = 0
-	let max = 0
-	for(let i = 0; i < sortedArray.length - 1; i++ ) {
-		min = min + sortedArray[i];
-	}
-	for(let i = 1; i < sortedArray.length; i++) {
-		max = max + sortedArray[i];
-	}
-	process.stdout.write(min + ' ' + max + '\n')
-
+function timeConversion(s) {
+    // Write your code here
+  console.log(s.slice(-2))
 }
 
 function main() {
-	
-	const arr = readLine().replace(/\s+$/g, '').split(' ').map(arrTemp => parseInt(arrTemp, 10));
-	
-	miniMaxSum(arr);
+    const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+
+    const s = readLine();
+
+    const result = timeConversion(s);
+
+    ws.write(result + '\n');
+
+    ws.end();
 }
